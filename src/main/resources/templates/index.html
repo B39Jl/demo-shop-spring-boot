@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Интернет магазин шаблон</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>.
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+  <header>
+  </header>
+  <div id="anounce">Товары изменены</div>
+
+  <div class="top-items">
+  </div>
+<div id="products" class="tovars">
+    <ul type="none">
+        <products
+                v-for="(p, index) in prod"
+                v-bind:proda="p, index"
+        ></products>
+    </ul>
+</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.0.2/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+  <script src="../static/js/websocket.js"></script>
+  <script src="../static/js/indexJs.js" th:inline="javascript"></script>
+</body>
+</html>
