@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/adminstyle.css">
+    <title>Login</title>
+</head>
+<body>
+<div class="regBlock">
+    <form class="regForm" th:action="@{/login}" method="post">
+        <div><label>username<input type="text" name="username"/> </label></div>
+        <div><label>password<input type="password" name="password"/> </label></div>
+        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+        <div><input type="submit" value="Sign In"/></div>
+    </form>
+</div>
+</body>
+</html>

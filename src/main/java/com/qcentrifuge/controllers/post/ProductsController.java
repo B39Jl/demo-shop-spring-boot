@@ -1,11 +1,13 @@
 package com.qcentrifuge.controllers.post;
 
-import com.qcentrifuge.dbproducts.Products;
-import com.qcentrifuge.dbproducts.ProductsRep;
+import com.qcentrifuge.db.products.Products;
+import com.qcentrifuge.db.products.ProductsRep;
 import com.qcentrifuge.service.SendTelegramInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,25 +35,38 @@ public class ProductsController {
 
 
     @PostMapping("/add")
-    public String addProducts(@Valid Products products, @RequestParam("file") MultipartFile file){
-        if (file != null){
-            File file1 = new File("upload");
-            if (file1.exists()){
-                String name = UUID.randomUUID().toString() + "." + file.getOriginalFilename();
-                try {
-                    file.transferTo(Paths.get(file1 + "/" + name));
-                } catch (IOException e) {
-                    e.printStackTrace();
+    public String addProducts(@Valid Products products, BindingResult result, @RequestParam("file") MultipartFile file, Model model){
+        model.addAttribute("nameValue", products.getName());
+        model.addAttribute("priceValue", products.getPrice());
+        model.addAttribute("descriptionValue", products.getDescription());
+        if (!result.hasErrors()) {
+            if (file != null) {
+                File file1 = new File("upload");
+                if (file1.exists()) {
+                    String name = UUID.randomUUID().toString() + "." + file.getOriginalFilename();
+                    try {
+                        file.transferTo(Paths.get(file1 + "/" + name));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    this.products.save(new Products(products.getName(), products.getPrice(), products.getDescription(), name));
+                } else {
+                    System.out.println("Сделан файл");
+                    file1.mkdir();
                 }
-                this.products.save(new Products(products.getName(), products.getPrice(), products.getDescription(), name));
-            }else {
-                System.out.println("Сделан файл");
-                file1.mkdir();
+            } else {
+                System.out.println("Файла нет");
             }
-        }else{
-            System.out.println("Файла нет");
+            return "redirect:/";
+        }else {
+
+            result.getFieldErrors().forEach(fieldError -> {
+                model.addAttribute(fieldError.getField() + "Error", fieldError.getDefaultMessage());
+            });
+            if (file == null) model.addAttribute( "fileError", "должно быть задано");
+
+            return "apanel";
         }
-        return "redirect:/";
     }
 
     @PostMapping("/del/{id}")

@@ -9,6 +9,10 @@ public class Bot extends TelegramLongPollingBot {
     private String name;
     private String token;
 
+    public Bot(){
+
+    }
+
     public Bot(DefaultBotOptions options) {
         super(options);
     }

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+</head>
+<body>
+<form th:action="@{/products/add}" method="post" enctype="multipart/form-data">
+    <div><label>name<input type="text" name="name" th:value="${nameValue}"/> </label></div> <div th:text="${nameError}"></div>
+    <div><label>price<input type="text" name="price" th:value="${priceValue}"/> </label></div><div th:text="${priceError}"></div>
+    <div><label>desc<input type="text" name="description" th:value="${descriptionValue}"/> </label></div><div th:text="${descriptionError}"></div>
+    <div><label>file<input type="file" name="file"/> </label></div> <div th:text="${fileError}"></div>
+    <div><input type="submit" value="Sign In"/></div>
+</form>
+</body>
+</html>

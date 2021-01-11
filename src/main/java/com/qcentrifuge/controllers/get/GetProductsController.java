@@ -1,6 +1,6 @@
 package com.qcentrifuge.controllers.get;
 
-import com.qcentrifuge.dbproducts.ProductsRep;
+import com.qcentrifuge.db.products.ProductsRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,7 +71,7 @@ public class GetProductsController {
 //    @SendTo("/topic/activity")
 //    public String changeProdData(){
 //        try {
-//            Thread.sleep(1000);//Имитация задержки на обработку
+//            Thread.sleep(1000);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
